@@ -62,3 +62,25 @@ btnScrollTo.addEventListener('click', function (e) {
   // New method
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+// Smooth page navigation
+
+// document.querySelectorAll('.nav__link').forEach(function (htmlElement) {
+//   htmlElement.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const href = this.getAttribute('href');
+//     document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+//New method of Smooth page navigation
+
+// 1. добавляем event listener для Общего родителя
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  // 2. Определить Target element
+  if (e.target.classList.contains('nav__link')) {
+    const href = e.target.getAttribute('href');
+    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+  }
+});
