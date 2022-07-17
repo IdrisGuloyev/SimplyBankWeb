@@ -108,6 +108,29 @@ tabConteiner.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
-// // Затухание панели навигации
-// const nav = document.querySelector('.nav');
-// nav.addEventListener('mouseover', )
+// Затухание панели навигации
+
+const navLinksHoverAnimation = function (e, opacity) {
+  if (e.target.classList.contains('nav__link')) {
+    const linkOver = e.target;
+    const siblingLinks = linkOver
+      .closest('.nav__links')
+      .querySelectorAll('.nav__link');
+    const logo = linkOver.closest('.nav').querySelector('img');
+    const logoText = linkOver.closest('.nav').querySelector('.nav__text');
+
+    siblingLinks.forEach(el => {
+      if (el !== linkOver) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+    logoText.style.opacity = this;
+  }
+};
+
+const nav = document.querySelector('.nav');
+
+  // Работа с аргументами при помощи bind() / this
+nav.addEventListener('mouseover', navLinksHoverAnimation.bind(0.4)
+);
+
+nav.addEventListener('mouseout', navLinksHoverAnimation.bind(1));
