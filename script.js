@@ -84,3 +84,30 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+// Вкладки
+const tabs = document.querySelectorAll('.operations__tab');
+const tabConteiner = document.querySelector('.operations__tab-container');
+const tabContents = document.querySelectorAll('.operations__content');
+
+tabConteiner.addEventListener('click', function (e) {
+  const clickedButton = e.target.closest('.operations__tab');
+  // Guard clause -пункт охраны
+  if (!clickedButton) return;
+
+  // Активная вкладка
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  clickedButton.classList.add('operations__tab--active');
+
+  // Активный контент
+  tabContents.forEach(content =>
+    content.classList.remove('operations__content--active')
+  );
+  document
+    .querySelector(`.operations__content--${clickedButton.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+// // Затухание панели навигации
+// const nav = document.querySelector('.nav');
+// nav.addEventListener('mouseover', )
