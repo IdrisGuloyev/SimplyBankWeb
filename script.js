@@ -175,7 +175,6 @@ const headerObserver = new IntersectionObserver(getStickyNav, {
 headerObserver.observe(header);
 
 // Показ элементов при прокручивании
-
 const allSections = document.querySelectorAll('.section');
 
 const appearanceSection = function (enteries, observer) {
@@ -194,3 +193,26 @@ allSections.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
 });
+
+// Lazy loading for Img
+const lazyImages = document.querySelectorAll('img[data-src]');
+
+const loadImages = function (entries, observer) {
+  const entry = entries[0];
+  if (!entry.isIntersecting) return;
+
+  // Меняем на изображение с высоким разрешением
+  entry.target.src = entry.target.dataset.src;
+  // entry.target.classList.remove('lazy-img');
+
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entry.target);
+};
+
+const lazyImagesObserver = new IntersectionObserver(loadImages, {
+  root: null,
+  threshold: 0.7,
+});
+lazyImages.forEach(image => lazyImagesObserver.observe(image));
